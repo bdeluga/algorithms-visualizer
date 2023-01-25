@@ -7,7 +7,7 @@
     @apply m-0 p-0;
   }
   main {
-    @apply w-screen h-screen bg-slate-900 text-slate-50 px-20 py-16;
+    @apply w-screen h-screen bg-slate-900 text-slate-50 px-10 py-16;
   }
   .btn {
     @apply px-2 py-3 text-3xl w-56 rounded-lg text-center border-[3px] transition-shadow shadow-2xl;
@@ -24,6 +24,6 @@
   }
 
   .action {
-    @apply underline-offset-2 hover:underline;
+    @apply block border-current border-l-2  hover:border-slate-200 hover:text-slate-200 duration-300 text-slate-500 pl-4 -ml-[2px];
   }
 }
