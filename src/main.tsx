@@ -1,6 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
-import Home from './pages/Home'
+import Home from './routes/Home'
 import './index.css'
 import {
   createBrowserRouter,
@@ -8,8 +8,8 @@ import {
   Route,
   Link,
 } from 'react-router-dom'
-import Sorting from './pages/Sorting'
-import PathFinding from './pages/PathFinding'
+import Sorting from './routes/Sorting'
+import PathFinding from './routes/PathFinding'
 
 const router = createBrowserRouter([
   {
@@ -17,7 +17,7 @@ const router = createBrowserRouter([
     element: <Home />,
   },
   {
-    path: 'sorting',
+    path: 'sorting/*',
     element: <Sorting />,
   },
   {
@@ -26,7 +26,7 @@ const router = createBrowserRouter([
   },
   {
     path: '*',
-    element: <div>cipka</div>,
+    element: <>404</>,
   },
 ])
 
