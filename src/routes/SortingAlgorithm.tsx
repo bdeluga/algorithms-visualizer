@@ -1,4 +1,5 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
+import { useLoadedLayout } from '../hooks/useLoadedLayout'
 import { useWindowSize } from '../hooks/useWindowSize'
 
 type Props = {
@@ -6,22 +7,38 @@ type Props = {
 }
 
 const SortingAlgorithm = ({ name }: Props) => {
-  const { height } = useWindowSize()
+  //! useMeasure should do the job
+  const [screenHeight, setScreenHeight] = useState(window.innerHeight)
+  useEffect(() => {
+    function handleResize() {
+      setScreenHeight(window.innerHeight)
+    }
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
 
-  const random_data = Array.from({ length: 50 }, () =>
-    Math.floor(Math.random() * (height! - 200) + 50)
+  const [data, setData] = useState(
+    Array.from({ length: 50 }, () =>
+      Math.floor(Math.random() * (screenHeight - 200) + 50)
+    )
   )
+  const loaded = useLoadedLayout()
 
   return (
     <div className="w-full h-full  flex gap-2 rotate-180">
-      {random_data.map(el => (
-        <div
-          style={{ height: el }}
-          className={`text-xs  w-full bg-slate-700 rotate-180 flex justify-center items-start p-0.5`}
-        >
-          {el}
-        </div>
-      ))}
+      {loaded && (
+        <>
+          {data.map((el, idx) => (
+            <div
+              key={idx}
+              style={{ height: el }}
+              className={`text-xs  w-full bg-slate-700 rotate-180 flex justify-center items-start p-0.5`}
+            >
+              {el}
+            </div>
+          ))}
+        </>
+      )}
     </div>
   )
 }
