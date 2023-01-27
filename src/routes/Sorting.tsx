@@ -2,6 +2,7 @@ import { Route, Routes, useParams } from 'react-router-dom'
 import SortingAlgorithm from './SortingAlgorithm'
 import SortingNav from './Nav'
 import { useState } from 'react'
+import useMeasure from 'react-use-measure'
 
 const Sorting = () => {
   const avaibleAlgorithms = [
@@ -17,44 +18,33 @@ const Sorting = () => {
 
   const path = useParams()['*'] || ''
 
-  const [options, setOptions] = useState()
+  const [options, setOptions] = useState({
+    n_elements: 10,
+    delay_ms: 0,
+  })
+
+  const [ref, bounds] = useMeasure()
+
+  const [data, setData] = useState(Array.from({ length: 10 }, () => 0))
 
   return (
     <main className="flex">
-      <SortingNav isFormVisible={avaibleAlgorithms.includes(path)} />
-      <section className=" ml-4 rounded-md w-full flex justify-center items-center font-bold text-2xl">
+      <SortingNav
+        isFormVisible={avaibleAlgorithms.includes(path)}
+        options={options}
+        setOptions={setOptions}
+        setData={setData}
+        bounds={bounds}
+        data={data}
+      />
+      <section
+        className=" ml-10 rounded-md w-full  flex justify-center items-center font-bold text-2xl"
+        ref={ref}
+      >
         <Routes>
           <Route
             path="bubble_sort"
-            element={<SortingAlgorithm name="bubble" />}
-          />
-          <Route
-            path="insertion_sort"
-            element={<SortingAlgorithm name="insertion" />}
-          />
-          <Route
-            path="selection_sort"
-            element={<SortingAlgorithm name="selection" />}
-          />
-          <Route
-            path="quick_sort"
-            element={<SortingAlgorithm name="quick" />}
-          />
-          <Route
-            path="merge_sort"
-            element={<SortingAlgorithm name="merge" />}
-          />
-          <Route
-            path="counting_sort"
-            element={<SortingAlgorithm name="merge" />}
-          />
-          <Route
-            path="radix_sort"
-            element={<SortingAlgorithm name="merge" />}
-          />
-          <Route
-            path="bucket_sort"
-            element={<SortingAlgorithm name="merge" />}
+            element={<SortingAlgorithm name={path} data={data} />}
           />
         </Routes>
       </section>
