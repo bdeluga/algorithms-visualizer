@@ -7,7 +7,7 @@
     @apply m-0 p-0;
   }
   main {
-    @apply w-screen h-screen bg-slate-900 text-slate-50 px-10 py-16;
+    @apply w-screen h-screen bg-slate-900 text-white px-10 py-16;
   }
   .btn {
     @apply px-2 py-3 text-3xl w-56 rounded-lg text-center border-[3px] transition-shadow shadow-2xl;
@@ -25,5 +25,26 @@
 
   .action {
     @apply block border-current border-l-2  hover:border-slate-200 hover:text-slate-200 duration-300 text-slate-500 pl-4 -ml-[2px];
+  }
+
+  /* Chrome, Safari, Edge, Opera */
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  /* Firefox */
+  input[type='number'] {
+    -moz-appearance: textfield;
+  }
+
+  input[type='range']::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    border: none;
+    height: 10px;
+    width: 10px;
+    border-radius: 50%;
+    background-color: white;
   }
 }
