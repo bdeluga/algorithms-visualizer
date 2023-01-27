@@ -2,7 +2,7 @@ import { Route, Routes, useParams } from 'react-router-dom'
 import SortingAlgorithm from './SortingAlgorithm'
 import SortingNav from './Nav'
 import { useState } from 'react'
-import useMeasure from 'react-use-measure'
+import useVisualizedAlgorithm from '../hooks/useVisualizedAlgorithm'
 
 const Sorting = () => {
   const avaibleAlgorithms = [
@@ -23,9 +23,10 @@ const Sorting = () => {
     delay_ms: 0,
   })
 
-  const [ref, bounds] = useMeasure()
-
-  const [data, setData] = useState(Array.from({ length: 10 }, () => 0))
+  const { data, run, generate, ref, isSorting, misc } = useVisualizedAlgorithm({
+    algorithm: path,
+    options,
+  })
 
   return (
     <main className="flex">
@@ -33,19 +34,24 @@ const Sorting = () => {
         isFormVisible={avaibleAlgorithms.includes(path)}
         options={options}
         setOptions={setOptions}
-        setData={setData}
-        bounds={bounds}
+        run={run}
+        generate={generate}
+        isSorting={isSorting}
         data={data}
+        misc={misc}
       />
       <section
         className=" ml-10 rounded-md w-full  flex justify-center items-center font-bold text-2xl"
         ref={ref}
       >
         <Routes>
-          <Route
-            path="bubble_sort"
-            element={<SortingAlgorithm name={path} data={data} />}
-          />
+          {avaibleAlgorithms.map((name, idx) => (
+            <Route
+              path={name}
+              element={<SortingAlgorithm data={data} />}
+              key={idx}
+            />
+          ))}
         </Routes>
       </section>
     </main>

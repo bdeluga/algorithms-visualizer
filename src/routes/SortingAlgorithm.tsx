@@ -1,11 +1,10 @@
 import { useLoadedLayout } from '../hooks/useLoadedLayout'
 
 type Props = {
-  name: string
   data: number[]
 }
 
-const SortingAlgorithm = ({ name, data }: Props) => {
+const SortingAlgorithm = ({ data }: Props) => {
   const loaded = useLoadedLayout()
 
   if (!loaded) return null
